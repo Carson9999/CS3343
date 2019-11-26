@@ -30,17 +30,17 @@ public class Main {
 					case "hire":
 						(new CmdHire()).execute(cmdParts);
 						break;
-					case "setupTeam":
-						(new CmdSetupTeam()).execute(cmdParts);
+					case "setupClub":
+						(new CmdSetupClub()).execute(cmdParts);
 						break;
 					case "startNewDay":
 						(new CmdStartNewDay()).execute(cmdParts);
 						break;
-					case "listTeams":
-						(new CmdListTeams()).execute(cmdParts);
+					case "listClubs":
+						(new CmdListClubs()).execute(cmdParts);
 						break;
-					case "listEmployees":
-						(new CmdListEmployees()).execute(cmdParts);
+					case "listTeachers":
+						(new CmdListTeachers()).execute(cmdParts);
 						break;
 					case "takeLeave":
 						(new CmdTakeLeave()).execute(cmdParts);
@@ -48,14 +48,14 @@ public class Main {
 					case "listLeaves":
 						(new CmdListLeaves()).execute(cmdParts);
 						break;
-					case "addTeamMember":
-						(new CmdAddTeamMember()).execute(cmdParts);
+					case "addClubMember":
+						(new CmdAddClubMember()).execute(cmdParts);
 						break;
 					case "listRoles":
 						(new CmdListRoles()).execute(cmdParts);
 						break;
-					case "listTeamMembers":
-						(new CmdListTeamMembers()).execute(cmdParts);
+					case "listClubMembers":
+						(new CmdListClubMembers()).execute(cmdParts);
 						break;
 					case "undo":
 						RecordedCommand.undoOneCommand();

@@ -1,14 +1,14 @@
 public class CmdListLeaves extends RecordedCommand {
 
-	Company co = Company.getInstance();
+	School co = School.getInstance();
 
 	@Override
 	public void execute(String[] cmdParts) {
 		if (cmdParts.length > 1) {
 			try {
-				Employee e = co.searchEmployee(cmdParts[1]);
+				Teacher e = co.searchTeacher(cmdParts[1]);
 				e.listAllLeaves();
-			} catch (ExEmployeeNotFound e) {
+			} catch (ExTeacherNotFound e) {
 				System.out.println(e.getMessage());
 			}
 		} else

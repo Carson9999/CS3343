@@ -1,7 +1,7 @@
 public class CmdTakeLeave extends RecordedCommand {
 
-	Company co = Company.getInstance();
-	Employee e;
+	School co = School.getInstance();
+	Teacher e;
 	LeaveRecord r;
 
 	@Override
@@ -10,7 +10,7 @@ public class CmdTakeLeave extends RecordedCommand {
 			if (cmdParts.length < 4)
 				throw new ExInsufficientArguments();
 
-			e = co.searchEmployee(cmdParts[2]);
+			e = co.searchTeacher(cmdParts[2]);
 			r = new LeaveRecord(new Day(cmdParts[3]), new Day(cmdParts[4]));
 			e.addLeave(r);
 
@@ -18,7 +18,7 @@ public class CmdTakeLeave extends RecordedCommand {
 			clearRedoList();
 
 			System.out.println(cmdParts[2] + " takes leave from " + cmdParts[3] + " to " + cmdParts[4] + ".(" + cmdParts[1] + ")");
-		} catch (ExInsufficientArguments | ExEmployeeNotFound | ExOverlappedLeaves | ExDateHasAlreadyPassed | ExInsufficientBalance e) {
+		} catch (ExInsufficientArguments | ExTeacherNotFound | ExOverlappedLeaves | ExDateHasAlreadyPassed | ExInsufficientBalance e) {
 			System.out.println(e.getMessage());
 		}
 	}

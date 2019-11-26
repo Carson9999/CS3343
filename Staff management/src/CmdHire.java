@@ -1,7 +1,7 @@
 public class CmdHire extends RecordedCommand {
 
-	Employee e;
-	Company co = Company.getInstance();
+	Teacher e;
+	School co = School.getInstance();
 	int annualLeaves;
 
 	@Override
@@ -14,26 +14,26 @@ public class CmdHire extends RecordedCommand {
 			if (annualLeaves < 0 || annualLeaves > 300)
 				throw new ExALOutOfRange();
 
-			e = co.createEmployee(cmdParts[1], annualLeaves);
+			e = co.createTeacher(cmdParts[1], annualLeaves);
 
 			addUndoCommand(this);
 			clearRedoList();
 
 			System.out.println("Hired " + cmdParts[1] + " with " + annualLeaves + " days annual leave.");
-		} catch (ExInsufficientArguments | ExEmployeeAlreadyExists | ExALOutOfRange e) {
+		} catch (ExInsufficientArguments | ExTeacherAlreadyExists | ExALOutOfRange e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
 	@Override
 	public void undoMe() {
-		co.removeEmployee(e);
+		co.removeTeacher(e);
 		addRedoCommand(this);
 	}
 
 	@Override
 	public void redoMe() {
-		co.addEmployee(e);
+		co.addTeacher(e);
 		addUndoCommand(this);
 	}
 }

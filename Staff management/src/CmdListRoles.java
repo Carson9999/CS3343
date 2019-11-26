@@ -6,11 +6,11 @@ public class CmdListRoles extends RecordedCommand {
 			if (cmdParts.length < 2)
 				throw new ExInsufficientArguments();
 
-			Company co = Company.getInstance();
-			Employee e = co.searchEmployee(cmdParts[1]);
+			School co = School.getInstance();
+			Teacher e = co.searchTeacher(cmdParts[1]);
 
 			e.listRoles();
-		} catch (ExInsufficientArguments | ExEmployeeNotFound e) {
+		} catch (ExInsufficientArguments | ExTeacherNotFound e) {
 			System.out.println(e.getMessage());
 		}
 	}
