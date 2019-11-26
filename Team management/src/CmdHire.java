@@ -19,7 +19,7 @@ public class CmdHire extends RecordedCommand {
 			addUndoCommand(this);
 			clearRedoList();
 
-			System.out.println("Done.");
+			System.out.println("Hired " + cmdParts[1] + " with " + annualLeaves + " days annual leave.");
 		} catch (ExInsufficientArguments | ExEmployeeAlreadyExists | ExALOutOfRange e) {
 			System.out.println(e.getMessage());
 		}
