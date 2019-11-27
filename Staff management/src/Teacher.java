@@ -30,10 +30,14 @@ public class Teacher implements Comparable<Teacher> {
 		throw new NoThisTeacherException();
 	}
 
-	public void addLeave(RegisterLeave r) throws DateExpiredException, OverALException {
+	public void addLeave(RegisterLeave r) throws RepeatedLeaveLeaves, DateExpiredException, OverALException {
 		Date currentDay = DateMain.getInstance().clone();
 		if (r.getsDay() < currentDay.getIntDay())
 			throw new DateExpiredException(currentDay);
+		
+		for (RegisterLeave r1 : allLeaveRecord)
+			if ((r.getsDay() > r1.getsDay() && r.getsDay() < r1.geteDay()) || (r.geteDay() > r1.getsDay() && r.geteDay() < r1.geteDay()))
+				throw new RepeatedLeaveLeaves(r1);
 
 		if (yrLeavesEntitled < r.daysBetween())
 			throw new OverALException(yrLeavesEntitled);

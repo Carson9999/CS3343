@@ -67,7 +67,7 @@ public class School {
 
 	public void listTeacher() {
 		for (Teacher e : allTeachers)
-			System.out.printf("%s (Entitled Annual Leaves: %d days)\n", e.getName(), e.getYrLeavesEntitled());
+			System.out.printf("%s (Leaves: %d days)\n", e.getName(), e.getYrLeavesEntitled());
 	}
 
 	public void listLeaves() {

@@ -18,7 +18,7 @@ public class TakeLeaveCM extends RecordedCommand {
 			clearRedoList();
 
 			System.out.println(cmdParts[2] + " takes leave from " + cmdParts[3] + " to " + cmdParts[4] + ".(" + cmdParts[1] + ")");
-		} catch ( ArgException | NoThisTeacherException | DateExpiredException | OverALException e) {
+		} catch ( ArgException | NoThisTeacherException | RepeatedLeaveLeaves | DateExpiredException | OverALException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -34,7 +34,7 @@ public class TakeLeaveCM extends RecordedCommand {
 		try {
 			e.addLeave(r);
 			addUndoCommand(this);
-		} catch (DateExpiredException | OverALException e) {
+		} catch ( RepeatedLeaveLeaves | DateExpiredException | OverALException e) {
 			System.out.println(e.getMessage());
 		}
 	}

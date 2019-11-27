@@ -52,7 +52,7 @@ public class Club implements Comparable<Club> {
 	public void listAllTutors() {
 		for (Teacher e : allTutors)
 			if (e.getName().equals(getLeaderName()))
-				System.out.println(e.getName() + " (Leader of Club)");
+				System.out.println(e.getName() + " (Main Tutor of the Club)");
 			else
 				System.out.println(e.getName());
 	}
