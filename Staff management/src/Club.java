@@ -24,7 +24,7 @@ public class Club implements Comparable<Club> {
 	}
 
 	public static void list(ArrayList<Club> list) {
-		System.out.printf("%-30s%-10s%-13s\n", "Club Name", "Leader", "Setup Date");
+		System.out.printf("%-30s%-10s%-13s\n", "Club Name", "Main Tutor", "Start at");
 		for (Club t : list)
 			System.out.printf("%-30s%-10s%-13s\n", t.ClubName, t.head.getName(), t.dateSetup.toString());
 	}
