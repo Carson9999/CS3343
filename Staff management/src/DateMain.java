@@ -11,8 +11,11 @@ public class DateMain extends Date {
 	}
 
 	public static void createTheInstance(String sDay) {
-		if (instance == null)
+		if (instance == null) {
 			instance = new DateMain(sDay);
+			System.out.println("Date updated: "+ sDay);
+		}
+		
 		else
 			System.out.println("Cannot create one more system date instance.");
 	}

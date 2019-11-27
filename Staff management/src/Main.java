@@ -8,14 +8,13 @@ public class Main {
 
 		command = new Scanner(System.in);
 		System.out.println("Welcome to the Club Management Software!");
-        System.out.print("Enter a command: ");
+        System.out.print("Please input today's date(e.g.updateDate//01-Nov-2019):");
         
 		try {
 			String cmdLine1 = command.nextLine();
-			String[] cmdLine1Parts = cmdLine1.split("\\|");
-			System.out.println("\n> " + cmdLine1);
+			String[] cmdLine1Parts = cmdLine1.split("\\//");
 			DateMain.createTheInstance(cmdLine1Parts[1]);
-			System.out.print("\nEnter a command: ");
+			System.out.print("\nUser: ");
 
 			while (command.hasNext()) {
 				
@@ -23,18 +22,16 @@ public class Main {
 				if (cmdLine.equals(""))
 					continue;
 
-				System.out.println("\n> " + cmdLine);
-
-				String[] cmdParts = cmdLine.split("\\|");
+				String[] cmdParts = cmdLine.split("\\//");
 				switch (cmdParts[0]) {
-					case "hire":
+					case "newTeacher":
 						(new NewTeacherCM()).run(cmdParts);
 						break;
-					case "setupClub":
+					case "createClub":
 						(new CreateClubCM()).run(cmdParts);
 						break;
-					case "startNewDay":
-						(new StartNewDayCM()).run(cmdParts);
+					case "updateDate":
+						(new DateUpdateCM()).run(cmdParts);
 						break;
 					case "listClubs":
 						(new ListClubsCM()).run(cmdParts);
@@ -69,9 +66,9 @@ public class Main {
 				System.out.print("\nEnter a command: ");
 			}
 		} catch (InputMismatchException e) {
-			System.out.println("File content problem. Program terminated.");
+			System.out.println("Content problem.");
 		} catch ( CommandNotFoundException e) {
-			System.out.println("Unknown command - ignored!");
+			System.out.println("Please input one more time!");
 		}
 	}
 }

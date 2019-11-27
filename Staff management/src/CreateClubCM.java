@@ -16,7 +16,7 @@ public class CreateClubCM extends RecordedCommand {
 			addUndoCommand(this);
 			clearRedoList();
 
-			System.out.println(cmdParts[1] + " has been set up and " + cmdParts[2] + " is the leader.");
+			System.out.println(cmdParts[1] + " has been set up and " + cmdParts[2] + " is the Main Tutor.");
 		} catch ( ArgException | ClubExistedException | NoThisTeacherException | TeacherExistedInClubException e) {
 			System.out.println(e.getMessage());
 		}
