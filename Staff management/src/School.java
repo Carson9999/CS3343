@@ -21,10 +21,10 @@ public class School {
 		Club.list(allClubs);
 	}
 
-	public Teacher createTeacher(String name, int annualLeaves) throws ExTeacherAlreadyExists {
+	public Teacher createTeacher(String name, int annualLeaves) throws TeacherExistedException {
 		for (Teacher allTeacher : allTeachers)
 			if (allTeacher.getName().equals(name))
-				throw new ExTeacherAlreadyExists();
+				throw new TeacherExistedException();
 
 		Teacher e = new Teacher(name, annualLeaves);
 		allTeachers.add(e);
@@ -32,15 +32,15 @@ public class School {
 		return e;
 	}
 
-	public Club createClub(String tName, String hName) throws ExClubAlreadyExists, ExTeacherNotFound, ExTeacherAlreadyInClub {
+	public Club createClub(String tName, String hName) throws ClubExistedException, NoThisTeacherException, TeacherExistedInClubException {
 		Teacher e = Teacher.searchTeacher(allTeachers, hName);
 
 		for (Club allClubs : allClubs)
 			if (allClubs.getName().equals(tName))
-				throw new ExClubAlreadyExists();
+				throw new ClubExistedException();
 
 		Club t = new Club(tName, e);
-		t.addClubMember(e);
+		t.addClubTutor(e);
 		allClubs.add(t);
 		Collections.sort(allClubs);
 		return t;
@@ -52,7 +52,7 @@ public class School {
 	}
 
 	public void removeClub(Club t) {
-		t.removeAllAssoClubMember();
+		t.removeAllClubTutor();
 		allClubs.remove(t);
 	}
 
@@ -77,23 +77,23 @@ public class School {
 		}
 	}
 
-	public void listClubMembers() {
+	public void listClubTutors() {
 		for (Club t: allClubs) {
 			System.out.println(t.getName() + ":");
-			t.listAllMembers();
+			t.listAllTutors();
 			System.out.println();
 		}
 	}
 
-	public Teacher searchTeacher(String name) throws ExTeacherNotFound {
+	public Teacher searchTeacher(String name) throws NoThisTeacherException {
 		return Teacher.searchTeacher(allTeachers, name);
 	}
 
-	public Club searchClub(String tName) throws ExClubNotFound {
+	public Club searchClub(String tName) throws ClubNotFoundException {
 		for (Club allClubs : allClubs)
 			if (allClubs.getName().equals(tName))
 				return allClubs;
-		throw new ExClubNotFound();
+		throw new ClubNotFoundException();
 	}
 
 }

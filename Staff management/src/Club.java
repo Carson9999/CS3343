@@ -5,21 +5,21 @@ public class Club implements Comparable<Club> {
 
 	private String ClubName;
 	private Teacher head;
-	private Day dateSetup;
-	private ArrayList<Teacher> allMembers;
+	private Date dateSetup;
+	private ArrayList<Teacher> allTutors;
 
-	public Club(String n, Teacher hd) {
-		this.ClubName = n;
-		this.head = hd;
-		this.dateSetup = SystemDate.getInstance().clone();
-		allMembers = new ArrayList<>();
+	public Club(String name, Teacher main) {
+		this.ClubName = name;
+		this.head = main;
+		this.dateSetup = DateMain.getInstance().clone();
+		allTutors = new ArrayList<>();
 	}
 
 	public String getName() {
 		return ClubName;
 	}
 
-	public String getHeadName() {
+	public String getLeaderName() {
 		return head.getName();
 	}
 
@@ -29,30 +29,30 @@ public class Club implements Comparable<Club> {
 			System.out.printf("%-30s%-10s%-13s\n", t.ClubName, t.head.getName(), t.dateSetup.toString());
 	}
 
-	public void addClubMember(Teacher e) throws ExTeacherAlreadyInClub {
-		for (Teacher e1 : allMembers)
+	public void addClubTutor(Teacher e) throws TeacherExistedInClubException {
+		for (Teacher e1 : allTutors)
 			if (e1.getName().equals(e.getName()))
-				throw new ExTeacherAlreadyInClub();
+				throw new TeacherExistedInClubException();
 
-		allMembers.add(e);
+		allTutors.add(e);
 		e.addClub(this);
-		Collections.sort(allMembers);
+		Collections.sort(allTutors);
 	}
 
-	public void removeClubMember(Teacher e) {
-		allMembers.remove(e);
+	public void removeClubTutor(Teacher e) {
+		allTutors.remove(e);
 		e.removeClub(this);
 	}
 
-	public void removeAllAssoClubMember() {
-		for (Teacher e : allMembers)
+	public void removeAllClubTutor() {
+		for (Teacher e : allTutors)
 			e.removeClub(this);
 	}
 
-	public void listAllMembers() {
-		for (Teacher e : allMembers)
-			if (e.getName().equals(getHeadName()))
-				System.out.println(e.getName() + " (Head of Club)");
+	public void listAllTutors() {
+		for (Teacher e : allTutors)
+			if (e.getName().equals(getLeaderName()))
+				System.out.println(e.getName() + " (Leader of Club)");
 			else
 				System.out.println(e.getName());
 	}

@@ -5,7 +5,7 @@ public class Teacher implements Comparable<Teacher> {
 
 	private String name;
 	private int yrLeavesEntitled;
-	private ArrayList<LeaveRecord> allLeaveRecord;
+	private ArrayList<RegisterLeave> allLeaveRecord;
 	private ArrayList<Club> allClub;
 
 	public Teacher(String n, int yle) {
@@ -23,31 +23,27 @@ public class Teacher implements Comparable<Teacher> {
 		return yrLeavesEntitled;
 	}
 
-	public static Teacher searchTeacher(ArrayList<Teacher> list, String nameToSearch) throws ExTeacherNotFound {
+	public static Teacher searchTeacher(ArrayList<Teacher> list, String nameToSearch) throws NoThisTeacherException {
 		for (Teacher aList : list)
 			if (aList.getName().equals(nameToSearch))
 				return aList;
-		throw new ExTeacherNotFound();
+		throw new NoThisTeacherException();
 	}
 
-	public void addLeave(LeaveRecord r) throws ExOverlappedLeaves, ExDateHasAlreadyPassed, ExInsufficientBalance {
-		Day currentDay = SystemDate.getInstance().clone();
+	public void addLeave(RegisterLeave r) throws DateExpiredException, OverALException {
+		Date currentDay = DateMain.getInstance().clone();
 		if (r.getsDay() < currentDay.getIntDay())
-			throw new ExDateHasAlreadyPassed(currentDay);
-
-		for (LeaveRecord r1 : allLeaveRecord)
-			if ((r.getsDay() > r1.getsDay() && r.getsDay() < r1.geteDay()) || (r.geteDay() > r1.getsDay() && r.geteDay() < r1.geteDay()))
-				throw new ExOverlappedLeaves(r1);
+			throw new DateExpiredException(currentDay);
 
 		if (yrLeavesEntitled < r.daysBetween())
-			throw new ExInsufficientBalance(yrLeavesEntitled);
+			throw new OverALException(yrLeavesEntitled);
 
 		allLeaveRecord.add(r);
 		yrLeavesEntitled -= r.daysBetween();
 		Collections.sort(allLeaveRecord);
 	}
 
-	public void removeLeave(LeaveRecord r) {
+	public void removeLeave(RegisterLeave r) {
 		yrLeavesEntitled += r.daysBetween();
 		allLeaveRecord.remove(r);
 	}
@@ -56,7 +52,7 @@ public class Teacher implements Comparable<Teacher> {
 		if (allLeaveRecord.size() == 0)
 			System.out.println("No leave record");
 
-		for (LeaveRecord r : allLeaveRecord)
+		for (RegisterLeave r : allLeaveRecord)
 			System.out.println(r.toString());
 	}
 
@@ -74,8 +70,8 @@ public class Teacher implements Comparable<Teacher> {
 			System.out.println("No role");
 
 		for (Club t : allClub)
-			if (t.getHeadName().equals(name))
-				System.out.println(t.getName() + " (Head of Club)");
+			if (t.getLeaderName().equals(name))
+				System.out.println(t.getName() + " (Leader of Club)");
 			else
 				System.out.println(t.getName());
 	}

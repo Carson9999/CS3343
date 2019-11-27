@@ -1,3 +1,3 @@
 interface Command {
-	void execute(String[] cmdParts);
+	void run(String[] cmdParts);
 }

@@ -1,20 +1,20 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
 
+	private static Scanner command;
+
 	public static void main(String[] args) {
 
-		Scanner command = new Scanner(System.in);
-		System.out.println("Welcome to the Staff Management Software!");
+		command = new Scanner(System.in);
+		System.out.println("Welcome to the Club Management Software!");
         System.out.print("Enter a command: ");
         
 		try {
 			String cmdLine1 = command.nextLine();
 			String[] cmdLine1Parts = cmdLine1.split("\\|");
 			System.out.println("\n> " + cmdLine1);
-			SystemDate.createTheInstance(cmdLine1Parts[1]);
+			DateMain.createTheInstance(cmdLine1Parts[1]);
 			System.out.print("\nEnter a command: ");
 
 			while (command.hasNext()) {
@@ -28,34 +28,34 @@ public class Main {
 				String[] cmdParts = cmdLine.split("\\|");
 				switch (cmdParts[0]) {
 					case "hire":
-						(new CmdHire()).execute(cmdParts);
+						(new NewTeacherCM()).run(cmdParts);
 						break;
 					case "setupClub":
-						(new CmdSetupClub()).execute(cmdParts);
+						(new CreateClubCM()).run(cmdParts);
 						break;
 					case "startNewDay":
-						(new CmdStartNewDay()).execute(cmdParts);
+						(new StartNewDayCM()).run(cmdParts);
 						break;
 					case "listClubs":
-						(new CmdListClubs()).execute(cmdParts);
+						(new ListClubsCM()).run(cmdParts);
 						break;
 					case "listTeachers":
-						(new CmdListTeachers()).execute(cmdParts);
+						(new ListTeachersCM()).run(cmdParts);
 						break;
 					case "takeLeave":
-						(new CmdTakeLeave()).execute(cmdParts);
+						(new TakeLeaveCM()).run(cmdParts);
 						break;
 					case "listLeaves":
-						(new CmdListLeaves()).execute(cmdParts);
+						(new ListLeavesCM()).run(cmdParts);
 						break;
-					case "addClubMember":
-						(new CmdAddClubMember()).execute(cmdParts);
+					case "addClubTutor":
+						(new AddClubTutorCM()).run(cmdParts);
 						break;
 					case "listRoles":
-						(new CmdListRoles()).execute(cmdParts);
+						(new ListRolesCM()).run(cmdParts);
 						break;
-					case "listClubMembers":
-						(new CmdListClubMembers()).execute(cmdParts);
+					case "listClubTutors":
+						(new ListClubTutorsCM()).run(cmdParts);
 						break;
 					case "undo":
 						RecordedCommand.undoOneCommand();
@@ -64,13 +64,13 @@ public class Main {
 						RecordedCommand.redoOneCommand();
 						break;
 					default:
-						throw new ExWrongCommand();
+						throw new CommandNotFoundException();
 				}
 				System.out.print("\nEnter a command: ");
 			}
 		} catch (InputMismatchException e) {
 			System.out.println("File content problem. Program terminated.");
-		} catch (ExWrongCommand e) {
+		} catch ( CommandNotFoundException e) {
 			System.out.println("Unknown command - ignored!");
 		}
 	}
